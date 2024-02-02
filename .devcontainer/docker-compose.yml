@@ -5,7 +5,7 @@ services:
       dockerfile: DOCKER
       context: .
     volumes:
-      - ./src:/var/www/html
+      - ../src:/var/www/html
   web-server:
     image: nginx
     restart: always
@@ -17,6 +17,8 @@ services:
   mysql-server:
     image: mysql:8.3
     restart: always
+    ports:
+      - '33006:3306'
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: platyplus2
