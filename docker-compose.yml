@@ -6,6 +6,7 @@ services:
       dockerfile: php-fpm.Dockerfile
     volumes:
       - ./src:/var/www/html
+      - ci-writable:/var/www/html/writable
   web-server:
     image: nginx
     restart: always
@@ -23,7 +24,7 @@ services:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: platyplus2
     volumes:
-      - "./.mysql-data:/var/lib/mysql"
+      - mysql-data:/var/lib/mysql
   # Taken from https://github.com/vercel/next.js/blob/canary/examples/with-docker-multi-env/docker/development/Dockerfile
   front-server:
     build:
@@ -36,3 +37,6 @@ services:
       - ./nextjs:/app
 volumes:
   mysql-data:
+    driver: local
+  ci-writable:
+    driver: local

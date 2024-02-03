@@ -11,9 +11,13 @@ Developing with Platy+ 2
 1 - Run the application
 --------------------------------
 
-2 - Web access
+2 - Back-end web access
 --------------------------------
 The web server is exposed on the port 8080 from the url http://localhost:8080/
+
+3 - Front-end web access
+--------------------------------
+The web server is exposed on the port 3000 from the url http://localhost:3000/
 
 
 2 - MySQL access
