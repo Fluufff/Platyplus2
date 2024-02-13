@@ -1,0 +1,9 @@
+{
+	"name": "Front-end (nextjs)",
+	"dockerComposeFile": ["../../docker-compose.yml"],
+	
+	"service": "front-server",
+	"workspaceFolder": "/app",
+	"runServices": ["mysql-server", "web-server", "php-fpm", "front-server"],
+	"shutdownAction": "stopCompose"
+}

@@ -1,8 +1,0 @@
-{
-	"name": "Alpine",
-	"dockerComposeFile": ["../docker-compose.yml"],
-	
-	"service": "php-fpm",
-	"workspaceFolder": "/var/www/html",
-	"runServices": ["mysql-server", "web-server", "php-fpm", "front-server"]
-}
