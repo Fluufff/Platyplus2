@@ -2,27 +2,11 @@
 
 About Platy+ 2
 ================================
-Platy+ is an online registration system targeted for residential conventions.
+Platy+ is an online registration system targeted for residential conventions.  
 It is written in PHP and relies on the [CodeIgniter framework](https://codeigniter.com/).
 
-Developing with Platy+ 2
+Quick-start
 ================================
 
-1 - Run the application
---------------------------------
+- [Developing with Platy+ 2](./docs/dev-vscode.md)
 
-2 - Back-end web access
---------------------------------
-The web server is exposed on the port 8080 from the url http://localhost:8080/
-
-3 - Front-end web access
---------------------------------
-The web server is exposed on the port 3000 from the url http://localhost:3000/
-
-
-2 - MySQL access
---------------------------------
-The MySQL server is exposed on the port 33006.
-
-**username:** root
-**password:** secret
