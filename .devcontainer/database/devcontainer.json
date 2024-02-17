@@ -1,0 +1,9 @@
+{
+	"name": "Database (mysql)",
+	"dockerComposeFile": ["../../docker-compose.yml"],
+	
+	"service": "mysql-server",
+	"workspaceFolder": "/var/lib/mysql",
+	"runServices": ["mysql-server", "web-server", "php-fpm", "front-server"],
+	"shutdownAction": "stopCompose"
+}
