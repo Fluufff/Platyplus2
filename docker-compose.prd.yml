@@ -4,17 +4,15 @@ services:
     build:
       context: .
       dockerfile: php-fpm.Dockerfile
-    volumes:
-      - ./src:/var/www/html
-      - ci-writable:/var/www/html/writable
+      target: prd
   web-server:
-    image: nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+      target: prd
     restart: always
     ports:
       - '8080:80'
-    volumes:
-      - ./src:/var/www/html
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
   mysql-server:
     image: mysql:8.3
     restart: always
@@ -25,18 +23,13 @@ services:
       MYSQL_DATABASE: platyplus2
     volumes:
       - mysql-data:/var/lib/mysql
-  # Taken from https://github.com/vercel/next.js/blob/canary/examples/with-docker-multi-env/docker/development/Dockerfile
   front-server:
     build:
       context: .
       dockerfile: nextjs.Dockerfile
-      target: dev
+      target: prd
     ports:
       - "3000:3000"
-    volumes:
-      - ./nextjs:/app
 volumes:
   mysql-data:
-    driver: local
-  ci-writable:
     driver: local

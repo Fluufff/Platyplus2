@@ -1,35 +1,37 @@
-FROM node:18-alpine as base
-RUN apk add --no-cache g++ make py3-pip libc6-compat
+# syntax=docker.io/docker/dockerfile-upstream:1.6.0
+
+ARG NODE_VERSION=18
+
+FROM node:${NODE_VERSION}-alpine as base
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add libc6-compat
 WORKDIR /app
-COPY ./nextjs/package*.json ./
 EXPOSE 3000
 
 FROM base as builder
-WORKDIR /app
-COPY ./nextjs/ .
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add g++ make
+COPY nextjs/package*.json .
+RUN npm ci
+COPY nextjs/ .
 RUN npm run build
 
+# Use this target for local development only.
+FROM base as dev
+ENV NODE_ENV=development
+CMD npm run dev
 
-FROM base as production
-WORKDIR /app
+FROM base as prd
 
 ENV NODE_ENV=production
-RUN npm ci
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 USER nextjs
 
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
+COPY --from=builder --link --chown=nextjs:nodejs /app/.next .
+COPY --from=builder --link /app/node_modules .
+COPY --from=builder --link /app/package*.json .
+COPY --from=builder --link /app/public .
 
 CMD npm start
-
-FROM base as dev
-ENV NODE_ENV=development
-RUN npm install 
-COPY . .
-CMD npm run dev
