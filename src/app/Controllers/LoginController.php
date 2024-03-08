@@ -10,9 +10,13 @@ use CodeIgniter\Shield\Entities\User;
 use CodeIgniter\Shield\Authentication\Authenticators\Session;
 use CodeIgniter\Shield\Traits\Viewable;
 use CodeIgniter\Shield\Validation\ValidationRules;
+use OpenApi\Attributes as OA;
 
-
-
+#[OA\Info(
+  title: "Login",
+  version: "1.0.0",
+  description: "Returns login information" 
+)]
 class LoginController extends ResourceController
 {
     /**
@@ -20,6 +24,12 @@ class LoginController extends ResourceController
      *
      * @return ResponseInterface
      */
+    #[OA\Get(
+        path: "/api/v1/login",
+        summary: "Returns login information.",
+        description: "Retrieves the connection state and, if connected, the user information."
+    )]
+    #[OA\Response(response: '200', description: 'User login information')]
     public function index()
     {
         $respond = [
@@ -56,6 +66,17 @@ class LoginController extends ResourceController
      *
      * @return ResponseInterface
      */
+    #[OA\Post(
+        path: "/api/v1/login",
+        summary: "Login the user.",
+        description: "Send the username and password to connect the user"
+    )]
+    #[OA\Request(
+        required: true,
+        content: [application/x-www-form-urlencoded => ""]
+    )]
+    #[OA\Response(response: '200', description: 'User logged in')]
+    #[OA\Response(response: '400', description: 'Login failed')]
     public function create()
     {
         return $this->loginAction();

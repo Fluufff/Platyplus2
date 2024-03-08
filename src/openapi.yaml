@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  title: Login
+  description: 'Returns login information'
+  version: 1.0.0
+paths:
+  /api/v1/login:
+    get:
+      summary: 'Returns login information.'
+      description: 'Retrieves the connection state and, if connected, the user information.'
+      operationId: 6ff15de65bd33435762cae95c7317897
+      responses:
+        '200':
+          description: 'User login information'
+    post:
+      summary: 'Login the user.'
+      description: 'Send the username and password to connect the user'
+      operationId: 6f67e0e0136fa3e10fd23bfff8e21a45
+      responses:
+        '200':
+          description: 'User logged in'
+        '400':
+          description: 'Login failed'
